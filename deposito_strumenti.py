@@ -54,11 +54,26 @@ class DepositoStrumenti:
 
     def strumenti_ordinati_per_marca(self):
         """Ordina gli strumenti per marca in ordine alfabetico"""
-        # TODO
+        return sorted(self.strumenti, key=attrgetter('marca'))
 
     def nuovo_prestito(self, data, id_strumento, cognome_allievo):
         """Crea un nuovo prestito"""
-        # TODO
+
+        trovato = False
+        for s in self.strumenti:        #controllo se strumento esiste nel deposito
+            if s.codice == id_strumento:
+                trovato = True
+                break
+        if not trovato:
+            raise Exception("strumento non trovato")  # Blocca la funzione qui!
+
+        for p in self.prestiti.values():        #controllo se strumento è già in prestito
+            if p.id_strumento == id_strumento:
+                raise Exception(f"lo strumento '{id_strumento}' è già in prestito.")
+
+        codice_np = f"P{self._prossimo_id_prestito}"        #creo nuovo codice prestito
+        self._prossimo_id_prestito += 1
+
 
     def termina_prestito(self, id_prestito):
         """Termina un prestito in atto"""
