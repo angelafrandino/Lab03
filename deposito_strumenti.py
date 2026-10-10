@@ -27,8 +27,8 @@ class DepositoStrumenti:
                     anno_acquisto = int(riga[3].strip())
                     valore = float(riga[4].strip())
 
-                nuovo_oggetto = Strumento(codice, tipo, marca, anno_acquisto, valore)
-                self.strumenti.append(nuovo_oggetto)
+                    nuovo_oggetto = Strumento(codice, tipo, marca, anno_acquisto, valore)
+                    self.strumenti.append(nuovo_oggetto)
 
         except FileNotFoundError:
             print(f"Impossibile trovare il file specificato: '{file_path}'")
@@ -73,8 +73,14 @@ class DepositoStrumenti:
 
         codice_np = f"P{self._prossimo_id_prestito}"        #creo nuovo codice prestito
         self._prossimo_id_prestito += 1
+        nuovo_p = Prestito(codice_np, data, id_strumento, cognome_allievo)
+        self.prestiti[id_strumento] = nuovo_p
+        return nuovo_p
 
 
     def termina_prestito(self, id_prestito):
         """Termina un prestito in atto"""
-        # TODO
+        if id_prestito not in self.prestiti:
+            raise Exception(f"Errore: Nessun prestito trovato con ID '{id_prestito}'.")
+
+        del self.prestiti[id_prestito]

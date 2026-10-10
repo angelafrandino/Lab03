@@ -7,7 +7,7 @@ class Strumento:
         self.valore = float(valore)
 
     def __str__(self):
-        return f"{self.codice} - {self.tipo} - {self.marca} - {self.anno} - €{self.valore}"
+        return f"{self.codice} - {self.tipo} - {self.marca} - {self.anno_acquisto} - €{self.valore}"
 
     def __repr__(self):
         return self.__str__()
